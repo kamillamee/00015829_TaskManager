@@ -42,6 +42,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check Docker Hub secrets
+        run: |
+          if [ -z "$DOCKERHUB_USER" ]; then
+            echo "::error::DOCKERHUB_USERNAME secret is missing! Add it in GitHub: Settings → Secrets and variables → Actions → New repository secret. Name: DOCKERHUB_USERNAME, Value: 00015829"
+            exit 1
+          fi
+          echo "Docker Hub credentials configured"
+        env:
+          DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USERNAME }}
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
