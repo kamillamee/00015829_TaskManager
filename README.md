@@ -2,7 +2,7 @@
 
 **Repository:** [https://github.com/kamillamee/00015829_DSCC](https://github.com/kamillamee/00015829_DSCC)
 
-A Django web application for managing projects and tasks, containerized with Docker and deployed via CI/CD pipeline.
+A Django web application for managing projects and tasks. Users can create projects, add tasks with tags, and track progress. The app is containerized with Docker and deployed via GitHub Actions CI/CD pipeline.
 
 **Student ID:** 00015829
 
