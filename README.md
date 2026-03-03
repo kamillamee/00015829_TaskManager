@@ -64,10 +64,11 @@ pytest tasks/ -v
 
 ## Deployment
 
-### Server Setup (Eskiz/Ubuntu)
+### Server Setup (Azure / Eskiz / Ubuntu)
 
-1. Install Docker and Docker Compose
-2. Clone repository: `git clone https://github.com/kamillamee/00015829_DSCC.git /opt/cloudcomputing`
+1. Create VM (Azure: Ubuntu 22.04, open ports 22, 80, 443)
+2. Install Docker: `curl -fsSL https://get.docker.com | sh`
+3. Clone repository: `git clone https://github.com/kamillamee/00015829_DSCC.git /opt/cloudcomputing`
 3. Configure `.env` with production values
 4. Configure UFW: `ufw allow 22,80,443`
 5. For HTTPS: Use Let's Encrypt (certbot) and place certs in `nginx/ssl/`
