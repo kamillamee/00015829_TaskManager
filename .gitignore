@@ -38,3 +38,5 @@ Thumbs.db
 # Secrets
 *.pem
 nginx/ssl/*.pem
+cloudcomputing_key
+cloudcomputing_key.pub
