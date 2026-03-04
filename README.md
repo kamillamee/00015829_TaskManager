@@ -1,138 +1,169 @@
-# Task Manager - Distributed Systems & Cloud Computing
+Task Manager Application
+Distributed Systems and Cloud Computing
 
-**Repository:** [https://github.com/kamillamee/00015829_DSCC](https://github.com/kamillamee/00015829_DSCC)
+Student ID: 00015829
+Repository: https://github.com/kamillamee/00015829_TaskManager.git
 
-A Django web application for managing projects and tasks. Users can create projects, add tasks with tags, and track progress. The app is containerized with Docker and deployed via GitHub Actions CI/CD pipeline.
+1. Introduction
 
-**Student ID:** 00015829
+This project presents the design and implementation of a web-based Task Manager application developed using the Django framework. The system enables users to create and manage projects, assign tasks, categorize them using tags, and monitor progress efficiently.
 
-## Features
+The application demonstrates core principles of distributed systems and cloud computing, including containerization, service orchestration, CI/CD automation, and production-ready deployment using modern DevOps practices.
 
-- **User Authentication**: Login, logout, registration
-- **Projects & Tasks**: Create, read, update, delete projects and tasks
-- **Database Models**: Project (many-to-one User), Task (many-to-one Project, many-to-many Tag), Tag
-- **Admin Panel**: Full Django admin configuration
-- **5+ Functional Pages**: Home, Login, Register, Project List, Project Detail, Task CRUD
+2. System Overview
 
-## Technologies Used
+The Task Manager is a multi-user web application that supports project-based task management. Each authenticated user can create multiple projects, and each project can contain multiple tasks. Tasks may be labeled with tags for categorization and filtering.
 
-- **Backend**: Django 4.2, Python 3.11
-- **Database**: PostgreSQL 15
-- **Web Server**: Nginx, Gunicorn
-- **Containerization**: Docker, Docker Compose
-- **CI/CD**: GitHub Actions
+The system follows a client–server architecture and is designed to operate both in a local development environment and in a cloud-based production environment.
 
-## Local Setup
+3. Functional Requirements
 
-### Prerequisites
+The application implements the following key features:
 
-- Python 3.11+
-- Docker & Docker Compose
-- PostgreSQL (or use Docker)
+3.1 User Authentication
 
-### Development without Docker
+User registration
 
-```bash
-python -m venv venv
-venv\Scripts\activate  # Windows
-# source venv/bin/activate  # Linux/Mac
+Secure login and logout functionality
 
-pip install -r requirements.txt
-copy .env.example .env   # Windows
-# Edit .env - set USE_SQLITE=True for local dev without PostgreSQL
+Role-based access via Django authentication system
 
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py runserver
-```
+3.2 Project Management
 
-### Development with Docker
+Create new projects
 
-```bash
-copy .env.example .env   # Windows
-# Set DOCKERHUB_USERNAME=00015829 in .env
+View a list of user-specific projects
 
-docker compose up --build
-# Access at http://localhost
-```
+Update project details
 
-### Run Tests
+Delete projects
 
-```bash
+3.3 Task Management
+
+Create tasks within a project
+
+Assign multiple tags to tasks
+
+Edit and delete tasks
+
+View task details
+
+3.4 Database Relationships
+
+The system uses relational database modeling with the following structure:
+
+User → Project (One-to-Many)
+
+Project → Task (One-to-Many)
+
+Task → Tag (Many-to-Many)
+
+3.5 Administrative Interface
+
+The Django Admin Panel is fully configured to allow administrative management of users, projects, tasks, and tags.
+
+3.6 User Interface Pages
+
+The application contains more than five functional pages, including:
+
+Home Page
+
+Login Page
+
+Registration Page
+
+Project List Page
+
+Project Detail Page
+
+Task Create/Update/Delete Pages
+
+4. Technologies Used
+
+The system is implemented using the following technologies:
+
+Component	Technology
+Backend Framework	Django 4.2
+Programming Language	Python 3.11
+Database	PostgreSQL 15
+Web Server	Gunicorn
+Reverse Proxy	Nginx
+Containerization	Docker, Docker Compose
+CI/CD	GitHub Actions
+5. System Architecture
+
+The application follows a containerized microservice-oriented architecture. Key services include:
+
+Web Application Container (Django + Gunicorn)
+
+Database Container (PostgreSQL)
+
+Reverse Proxy Container (Nginx)
+
+Docker Compose is used to orchestrate multi-container deployment, ensuring consistent environments across development and production.
+
+6. Local Development Setup
+6.1 Development Without Docker
+
+The application can be executed locally using a Python virtual environment:
+
+Create a virtual environment
+
+Install dependencies
+
+Configure environment variables
+
+Apply database migrations
+
+Run the development server
+
+SQLite can optionally be used for lightweight local testing.
+
+6.2 Development With Docker
+
+For environment consistency, Docker Compose is used to build and run all services:
+Environment variables are configured via .env
+Containers are built and started using docker compose up --build
+Application is accessible via http://localhost
+
+7. Testing
+
+Automated testing is implemented using pytest. Tests validate application logic, model relationships, and core functionality.
+Tests can be executed using:
+
 pytest tasks/ -v
-```
+8. Deployment Strategy
+8.1 Cloud Deployment
 
-## Deployment
+The application is designed for deployment on cloud-based virtual machines (e.g., Ubuntu 22.04 on Azure). The deployment process includes:
+Virtual machine configuration
+Docker installation
+Repository cloning
+Environment configuration
+HTTPS setup using Let's Encrypt
 
-### Server Setup (Azure / Eskiz / Ubuntu)
+Firewall configuration (ports 22, 80, 443)
 
-1. Create VM (Azure: Ubuntu 22.04, open ports 22, 80, 443)
-2. Install Docker: `curl -fsSL https://get.docker.com | sh`
-3. Clone repository: `git clone https://github.com/kamillamee/00015829_DSCC.git /opt/cloudcomputing`
-3. Configure `.env` with production values
-4. Configure UFW: `ufw allow 22,80,443`
-5. For HTTPS: Use Let's Encrypt (certbot) and place certs in `nginx/ssl/`
+8.2 CI/CD Pipeline
 
-### GitHub Actions Deployment
+A GitHub Actions pipeline automates:
+Docker image building
+Image publishing to Docker Hub
+Optional automatic deployment via SSH
+The pipeline is triggered upon push to the main branch, ensuring continuous integration and delivery.
 
-1. Create a repository on Docker Hub named `cloudcomputing` (or your preferred name)
-2. In GitHub: **Settings → Secrets and variables → Actions**, add:
+9. Environment Configuration
 
-| Secret | Value | Description |
-|--------|-------|-------------|
-| DOCKERHUB_USERNAME | `00015829` | Your Docker Hub username |
-| DOCKERHUB_TOKEN | Access Token from Docker Hub | Account Settings → Security → New Access Token |
-| SSH_HOST | Server IP | (Add when you have a server) |
-| SSH_USERNAME | `root` | (Add when you have a server) |
-| SSH_PRIVATE_KEY | Your private SSH key | (Add when you have a server) |
-| DEPLOY_PATH | `/opt/cloudcomputing` | Optional, default path on server |
+The system uses environment variables to ensure security and flexibility. Key variables include:
 
-Pipeline triggers on push to `main` branch. Build and push work without server; deploy needs SSH secrets.
+SECRET_KEY – Django secret key
 
-### Manual Deployment
+DEBUG – Debug mode configuration
 
-```bash
-# On server
-cd /opt/cloudcomputing
-git pull
-docker compose pull
-docker compose up -d
-docker compose exec web python manage.py migrate --noinput
-docker compose exec web python manage.py collectstatic --noinput
-```
+ALLOWED_HOSTS – Production host configuration
 
-## Environment Variables
+POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD – Database credentials
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| SECRET_KEY | Django secret key | (required) |
-| DEBUG | Debug mode | False |
-| ALLOWED_HOSTS | Comma-separated hosts | localhost |
-| POSTGRES_DB | Database name | cloudcomputing_db |
-| POSTGRES_USER | DB user | postgres |
-| POSTGRES_PASSWORD | DB password | (required) |
-| POSTGRES_HOST | DB host | db (Docker) |
-| DOCKERHUB_USERNAME | For image tagging / pull | 00015829 |
-| USE_SQLITE | Use SQLite instead of PostgreSQL (local dev) | False |
+DOCKERHUB_USERNAME – Docker image tagging
 
-## Project Structure
-
-```
-├── config/          # Django settings
-├── tasks/           # Main application
-├── nginx/           # Nginx configuration
-├── .github/         # GitHub Actions workflows
-├── Dockerfile       # Multi-stage build
-├── docker-compose.yml
-└── requirements.txt
-```
-
-## Screenshots
-
-*(Add screenshots of your running application here)*
-
-## License
-
-Educational project - WIUT DSCC Coursework.
-
----
+USE_SQLITE – Optional local database override
