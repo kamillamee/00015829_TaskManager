@@ -138,7 +138,7 @@ pytest tasks/ -v
 The application is designed for deployment on cloud-based virtual machines (e.g., Ubuntu 22.04 on Azure). The deployment process includes:
 Virtual machine configuration
 Docker installation
-Repository cloning
+Repository cloning: `git clone https://github.com/kamillamee/00015829_TaskManager.git /opt/cloudcomputing`
 Environment configuration
 HTTPS setup using Let's Encrypt
 
