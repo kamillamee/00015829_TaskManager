@@ -1,7 +1,5 @@
 # Production Docker Compose - used by CI/CD deploy step
 # Uses pre-built image from Docker Hub (no local build)
-version: '3.8'
-
 services:
   db:
     image: postgres:15-alpine

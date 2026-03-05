@@ -9,7 +9,7 @@ from django.views.generic import CreateView, ListView
 from django.urls import reverse_lazy
 
 from .models import Project, Task, Tag
-from .forms import RegisterForm, ProjectForm, TaskForm
+from .forms import RegisterForm, ProjectForm, TaskForm, CustomLoginForm
 
 
 def home(request):
@@ -23,6 +23,7 @@ def home(request):
 class CustomLoginView(LoginView):
     """Custom login view with redirect."""
     template_name = 'tasks/login.html'
+    form_class = CustomLoginForm
     redirect_authenticated_user = True
 
 
