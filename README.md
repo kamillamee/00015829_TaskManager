@@ -105,33 +105,34 @@ Docker Compose is used to orchestrate multi-container deployment, ensuring consi
 6. Local Development Setup
 6.1 Development Without Docker
 
-The application can be executed locally using a Python virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # or venv\Scripts\activate on Windows
+pip install -r requirements.txt
+cp .env.example .env
+python manage.py migrate
+python manage.py runserver
+```
 
-Create a virtual environment
-
-Install dependencies
-
-Configure environment variables
-
-Apply database migrations
-
-Run the development server
-
-SQLite can optionally be used for lightweight local testing.
+Set `USE_SQLITE=True` in `.env` for local development without PostgreSQL.
 
 6.2 Development With Docker
 
-For environment consistency, Docker Compose is used to build and run all services:
-Environment variables are configured via .env
-Containers are built and started using docker compose up --build
-Application is accessible via http://localhost
+```bash
+cp .env.example .env
+docker compose up --build -d
+```
+
+Environment variables are configured via `.env`. The application is accessible at http://localhost.
 
 7. Testing
 
 Automated testing is implemented using pytest. Tests validate application logic, model relationships, and core functionality.
-Tests can be executed using:
 
+```bash
+pip install pytest pytest-django
 pytest tasks/ -v
+```
 8. Deployment Strategy
 8.1 Cloud Deployment
 

@@ -6,7 +6,7 @@
 <div class="row">
     {% for project in projects %}
     <div class="col-md-4 mb-3">
-        <div class="card">
+        <div class="card project-card h-100">
             <div class="card-body">
                 <h5 class="card-title">{{ project.name }}</h5>
                 <p class="card-text">{{ project.description|truncatewords:15 }}</p>
@@ -17,7 +17,7 @@
         </div>
     </div>
     {% empty %}
-    <p>No projects yet. <a href="{% url 'project_create' %}">Create one</a>.</p>
+    <div class="col-12"><p class="text-muted">No projects yet. <a href="{% url 'project_create' %}">Create one</a>.</p></div>
     {% endfor %}
 </div>
 {% endblock %}

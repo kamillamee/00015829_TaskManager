@@ -43,6 +43,7 @@ class RegisterForm(UserCreationForm):
             if 'class' not in field.widget.attrs:
                 field.widget.attrs['class'] = 'form-control'
         self.fields['username'].help_text = ''
+        self.fields['password1'].help_text = ''
         self.fields['password2'].help_text = ''
 
 

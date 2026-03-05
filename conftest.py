@@ -6,7 +6,7 @@ import pytest
 from django.contrib.auth import get_user_model
 
 # Use SQLite for faster tests (no PostgreSQL needed in CI)
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings_test')
 
 
 @pytest.fixture
