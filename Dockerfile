@@ -28,9 +28,10 @@ RUN groupadd --gid 1000 appuser && \
 
 WORKDIR /app
 
-# Install runtime dependencies only
+# Install runtime dependencies (util-linux for runuser)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq5 \
+    util-linux \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy virtual environment from builder
@@ -45,8 +46,7 @@ RUN chmod +x /entrypoint.sh
 # Set ownership
 RUN chown -R appuser:appuser /app
 
-USER appuser
-
+# Entrypoint runs as root for migrate/collectstatic, then drops to appuser for gunicorn
 EXPOSE 8000
 
 ENTRYPOINT ["/entrypoint.sh"]
