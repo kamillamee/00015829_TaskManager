@@ -1,0 +1,11 @@
+// to connect serever SSH
+
+cat > /opt/cloudcomputing/.env << 'ENVEOF'
+SECRET_KEY=jngeokkMKKmfro123340tjkmrlklkmmadgrrwgkjnnlJKN<Mmlkjfwlk24452jkrfkjkvnekjn33NJkjnerjglmnksf
+DEBUG=False
+ALLOWED_HOSTS=20.251.154.94,localhost
+POSTGRES_PASSWORD=Innbox1122334455
+POSTGRES_HOST=db
+POSTGRES_PORT=5432
+DOCKERHUB_USERNAME=00015829
+ENVEOF

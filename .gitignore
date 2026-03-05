@@ -40,3 +40,5 @@ Thumbs.db
 nginx/ssl/*.pem
 cloudcomputing_key
 cloudcomputing_key.pub
+env_for_server.txt
+setup_env_on_server.sh
